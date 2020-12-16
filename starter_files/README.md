@@ -11,7 +11,42 @@
 ## Key Steps
 *TODO*: Write a short discription of the key steps. Remeber to include all the screenshots required to demonstrate key steps. 
 
+![image-20201216162015134](C:\gitrepos\nd00333_AZMLND_C2\media\registerd_dataset.png)
+
+![image-20201216164732050](C:\gitrepos\nd00333_AZMLND_C2\media\experiment_completed.png)
+
+
+
+![image-20201216165148357](C:\gitrepos\nd00333_AZMLND_C2\media\best_model.png)
+
+Deploy
+
+
+
+Enable App-Insight
+
+![image-20201216172259901](C:\gitrepos\nd00333_AZMLND_C2\media\log_py_output.png)
+
+![image-20201216172353552](C:\gitrepos\nd00333_AZMLND_C2\media\app_insight_enabled.png)
+
+Consuming endpoint log
+
+![image-20201216172723130](C:\gitrepos\nd00333_AZMLND_C2\media\endpoint_log.png)
+
+Swagger Running
+
+![image-20201216174431317](C:\gitrepos\nd00333_AZMLND_C2\media\swagger_running.png)
+
+Endpoint exploration with swagger
+
+![image-20201216174555268](C:\gitrepos\nd00333_AZMLND_C2\media\endpoint_local_swagger.png)
+
+Consume Endpoint 
+
+![image-20201216175000883](C:\gitrepos\nd00333_AZMLND_C2\media\consume_endpoint.png)
+
 ## Screen Recording
+
 *TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
 
 ## Standout Suggestions
