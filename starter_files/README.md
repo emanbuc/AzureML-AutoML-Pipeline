@@ -45,7 +45,25 @@ Consume Endpoint
 
 ![image-20201216175000883](C:\gitrepos\nd00333_AZMLND_C2\media\consume_endpoint.png)
 
+### Pipeline
+
+![image-20201217123316161](C:\gitrepos\nd00333_AZMLND_C2\media\pipeline_created.png)
+
+![image-20201217123235696](C:\gitrepos\nd00333_AZMLND_C2\media\pipeline_details.png)
+
+Run Details
+
+![image-20201217123752558](C:\gitrepos\nd00333_AZMLND_C2\media\run_details.png)
+
+Experiment Run
+
+![image-20201217124028455](C:\gitrepos\nd00333_AZMLND_C2\media\experiment_run.png)
+
+![image-20201217124627570](C:\gitrepos\nd00333_AZMLND_C2\media\pipeline_endpoint.png)
+
 ## Screen Recording
+
+
 
 *TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
 
