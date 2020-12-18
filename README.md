@@ -1,1 +1,126 @@
 
+# Cloud Based Machine Learning Production Model and Pipeline on Azure
+
+In this project, we are using the Bank Marketing dataset to create a cloud-based machine learning production model and a pipeline on Azure Machine Learning. We will create a model with Auto Machine Learning, deploy it, and consume it. We also will  create, publish, and consume a pipeline. We will describe our work in this README file and in a screencast video.
+
+ 
+
+![img](/Users/emanuelebuchicchio/nd00333_AZMLND_C2/media/step-diagram.png)
+
+**Main Steps**:
+
+1. Authentication (required to interect with Azure ML Workspace)
+2. Automated ML Experiment
+3. Deploy the best model
+4. Enable logging
+5. Swagger Documentation
+6. Consume model endpoints
+7. Create and publish a pipeline
+8. Documentation
+
+## Key Steps
+
+### Step 1: Authentication
+
+[...]
+
+### Step 2: Automated ML Experiment
+
+In this step, you we created an experiment using **Automated ML**, configured a compute cluster, and used that cluster to run the experiment.
+
+<u>Bank Market Dataset Registered</u> 
+
+![image-20201216162015134](media\registerd_dataset.png)
+
+After the experiment run completes, a summary of all the models and their metrics are shown, including explanations. The *Best Model* is shown in the *Details* tab.
+
+![image-20201216164732050](media\experiment_completed.png)
+
+The "best model" can be easily selected and analized and deployed.
+
+![image-20201216165148357](media\best_model.png)
+
+### Step 3: Deploy the Best Model
+
+Deploying the Best Model will allow to interact with the HTTP API service and interact with the model by sending data over POST requests.
+
+![image-20201216165148357](media\best_model.png)
+
+### Step 4: Enable Application Insights
+
+
+
+Now that the *Best Model* is deployed, enable Application Insights and retrieve logs. Although this is configurable at deploy time with a check-box, it is useful to be able to run code that will enable it for you. In this step we demostrate how to enable *Application Insights* and how to retreive logs running [logs.py](logs.py) python script.
+
+```python
+service = Webservice(name=name, workspace=ws)
+logs = service.get_logs()
+service.update(enable_app_insights=True)
+
+for line in logs.split('\n'):
+    print(line)
+```
+
+Logs are shown immediately and the detail panel shows "Application Insights Enabled" = true
+
+![image-20201216172259901](media\log_py_output.png)
+
+![image-20201216172353552](media\app_insight_enabled.png)
+
+1. ### Consume model endpoints
+
+2. Create and publish a pipeline
+
+3. Documentation
+
+Consuming endpoint log
+
+![image-20201216172723130](media\endpoint_log.png)
+
+### Step 5: Swagger Documentation
+
+In this step, we consumed the deployed model using Swagger.
+
+Azure provides a [Swagger JSON file](https://swagger.io/) for deployed models. Head to the *Endpoints* section, and find your deployed model there, it should be the first one on the list.
+
+The easyest way to run swagger locally is from the official docker image. The `swagger.sh` script will download the latest Swagger container, and it will run it on port 80. If you don't have permissions for port 80 on your computer, update the script to a higher number (above 9000 is a good idea).
+
+```
+docker pull swaggerapi/swagger-ui
+docker run -p 9000:8080 swaggerapi/swagger-ui
+```
+
+![image-20201216174431317](media\swagger_running.png)
+
+Endpoint exploration with swagger
+
+![image-20201216174555268](media\endpoint_local_swagger.png)
+
+Consume Endpoint 
+
+![image-20201216175000883](media\consume_endpoint.png)
+
+### Pipeline
+
+![image-20201217123316161](media\pipeline_created.png)
+
+![image-20201217123235696](media\pipeline_details.png)
+
+Run Details
+
+![image-20201217123752558](media\run_details.png)
+
+Experiment Run
+
+![image-20201217124028455](media\experiment_run.png)
+
+![image-20201217124627570](media\pipeline_endpoint.png)
+
+## Screen Recording
+
+
+
+*TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
+
+## Standout Suggestions
+*TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
