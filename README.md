@@ -83,7 +83,7 @@ In this step, we consumed the deployed model using Swagger.
 
 Azure provides a [Swagger JSON file](https://swagger.io/) for deployed models. Head to the *Endpoints* section, and find your deployed model there, it should be the first one on the list.
 
-The easyest way to run swagger locally is from the official docker image. The `swagger.sh` script will download the latest Swagger container, and it will run it on port 80. If you don't have permissions for port 80 on your computer, update the script to a higher number (above 9000 is a good idea).
+The easyest way to run swagger locally is from the official docker image. The `swagger.sh` script will download the latest Swagger container, and it will run it on port 9000. 
 
 ```
 docker pull swaggerapi/swagger-ui
@@ -92,15 +92,42 @@ docker run -p 9000:8080 swaggerapi/swagger-ui
 
 ![image-20201216174431317](media\swagger_running.png)
 
-Endpoint exploration with swagger
+This script [serve.py](serve.py) creates an HTTP server to expose the current working directory. It is meant to be an easy way to expose a local swagger.json file so that a swagger-ui service can pick it up from localhost:8000
+
+```python
+class CORSRequestHandler(SimpleHTTPRequestHandler):
+    """
+    Allows a simple HTTP server to have CORS enabled by default
+    """
+
+    def end_headers(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        SimpleHTTPRequestHandler.end_headers(self)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        # Allows the port to be passed in as an argument
+        port = sys.argv[-1]
+    else:
+        port = 8000
+
+    test(CORSRequestHandler, HTTPServer, port=port)
+```
+
+Now Swagger can be used to explore and consume the swagger.json file from Azure endpoint
 
 ![image-20201216174555268](media\endpoint_local_swagger.png)
 
-Consume Endpoint 
+### Step 6: Consume Model Endpoints
+
+Once the model is deployed,  The [endpoint.py](endpoint.py) script is used to demostrate an incteracion with the trained model. In the script the `scoring_uri` and the `key`must match the key for your service and the URI that was generated after deployment and that are visible in the "Details Tab"
 
 ![image-20201216175000883](media\consume_endpoint.png)
 
-### Pipeline
+### Step 7: Create, Publish and Consume a Pipeline
+
+For this part of the project, the [aml-pipelines-with-automated-machine-learning-step.ipynb](aml-pipelines-with-automated-machine-learning-step.ipynb) Jupyter Notebook has been used to create, publish and consume a pipeline.
 
 ![image-20201217123316161](media\pipeline_created.png)
 
