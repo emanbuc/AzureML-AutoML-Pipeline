@@ -22,7 +22,7 @@ In this project, we are using the Bank Marketing dataset to create a cloud-based
 
 ### Step 1: Authentication
 
-In general, there three authentication workflows that you can use when connecting to the workspace:
+In general, there three authentication workflow that you can use when connecting to the workspace:
 
 - **Interactive**: You use your account in Azure Active Directory to either directly authenticate, or to get a token that is used for authentication. Interactive authentication is used during *experimentation and iterative development*. Interactive authentication enables you to control access to resources (such as a web service) on a per-user basis.
 - **Service principal**: You create a service principal account in Azure Active Directory, and use it to authenticate or get a token. A service principal is used when you need an *automated process to authenticate* to the service without requiring user interaction. For example, a continuous integration and deployment script that trains and tests a model every time the training code changes.
@@ -63,7 +63,7 @@ After the experiment run completes, a summary of all the models and their metric
 
 ![image-20201216164732050](media/experiment_completed.png)
 
-The "best model" can be easily selected and analized and deployed.
+The "best model" can be easily selected and analyzed and deployed.
 
 ![image-20201216165148357](media/best_model.png)
 
@@ -73,7 +73,7 @@ Deploying the Best Model will allow to interact with the HTTP API service and in
 
 ![image-20201216165148357](media/best_model.png)
 
-### Step 4: Enable Application Insights
+### Step 4: Enable Application Insights Logging
 
 
 
@@ -94,19 +94,13 @@ Logs are shown immediately and the detail panel shows "Application Insights Enab
 
 ![image-20201216172353552](media/app_insight_enabled.png)
 
-1. ### Consume model endpoints
+### Step 5: Consume model endpoints
 
 2. Create and publish a pipeline
 
 3. Documentation
 
-Consuming endpoint log
-
-![image-20201216172723130](media/endpoint_log.png)
-
-### Step 5: Swagger Documentation
-
-In this step, we consumed the deployed model using Swagger.
+#### Endpoint Exploration with Swagger
 
 Azure provides a [Swagger JSON file](https://swagger.io/) for deployed models. Head to the *Endpoints* section, and find your deployed model there, it should be the first one on the list.
 
@@ -146,13 +140,17 @@ Now Swagger can be used to explore and consume the swagger.json file from Azure 
 
 ![image-20201216174555268](media/endpoint_local_swagger.png)
 
-### Step 6: Consume Model Endpoints
+Log from endpoint during exploration with Swagger
+
+![image-20201216172723130](media/endpoint_log.png)
+
+#### Consume Model Endpoints from a client Application
 
 Once the model is deployed,  The [endpoint.py](endpoint.py) script is used to demonstrate an interaction with the trained model. In the script the `scoring_uri` and the `key`must match the key for your service and the URI that was generated after deployment and that are visible in the "Details Tab"
 
 ![image-20201216175000883](media/consume_endpoint.png)
 
-### Step 7: Create, Publish and Consume a Pipeline
+### Step 6: Create, Publish and Consume a Pipeline
 
 For this part of the project, the [aml-pipelines-with-automated-machine-learning-step.ipynb](aml-pipelines-with-automated-machine-learning-step.ipynb) Jupyter Notebook has been used to create, publish and consume a pipeline.
 
@@ -172,9 +170,20 @@ Experiment Run
 
 ## Screen Recording
 
+https://youtu.be/RNwyoEGyhH0
 
-
-*TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RNwyoEGyhH0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Standout Suggestions
-*TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
+The performance of the classification model from AutoML are sub-optimal. 
+
+In the AutoML step, we set the featurization parameter is set to 'auto'.  Manual feature engineering may improve the model performance. 
+
+-  choose the encoder for the categorical variables,
+- how to deal with missing values
+- try to reduce dimension using PCA
+
+The dataset unbalanced. Only about 10% of the customer subscribed. Therefore this issue should be considered to fix for future experiments. 
+
+- We may try to use different samplig tecnique 
+- A different metric can be used. 'AUC_weighted' is a common choice for unbalanced dataset.
