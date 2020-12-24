@@ -96,10 +96,6 @@ Logs are shown immediately and the detail panel shows "Application Insights Enab
 
 ### Step 5: Consume model endpoints
 
-2. Create and publish a pipeline
-
-3. Documentation
-
 #### Endpoint Exploration with Swagger
 
 Azure provides a [Swagger JSON file](https://swagger.io/) for deployed models. Head to the *Endpoints* section, and find your deployed model there, it should be the first one on the list.
@@ -171,8 +167,6 @@ Experiment Run
 ## Screen Recording
 
 https://youtu.be/RNwyoEGyhH0
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RNwyoEGyhH0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Standout Suggestions
 The performance of the classification model from AutoML are sub-optimal. 
