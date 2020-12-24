@@ -22,7 +22,34 @@ In this project, we are using the Bank Marketing dataset to create a cloud-based
 
 ### Step 1: Authentication
 
-[...]
+In general, there three authentication workflows that you can use when connecting to the workspace:
+
+- **Interactive**: You use your account in Azure Active Directory to either directly authenticate, or to get a token that is used for authentication. Interactive authentication is used during *experimentation and iterative development*. Interactive authentication enables you to control access to resources (such as a web service) on a per-user basis.
+- **Service principal**: You create a service principal account in Azure Active Directory, and use it to authenticate or get a token. A service principal is used when you need an *automated process to authenticate* to the service without requiring user interaction. For example, a continuous integration and deployment script that trains and tests a model every time the training code changes.
+- **Managed identity**: When using the Azure Machine Learning SDK *on an Azure Virtual Machine*, you can use a managed identity for Azure. This workflow allows the VM to connect to the workspace using the managed identity, without storing credentials in Python code or prompting the user to authenticate. Azure Machine Learning compute clusters can also be configured to use a managed identity to access the workspace when *training models*.
+
+see [Set up authentication - Azure Machine Learning | Microsoft Docs](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-setup-authentication) for more information.
+
+#### How To Get Service Principal Client ID
+
+Prerequisites:
+
+- AZ CLI Must be Installed (see [Install the Azure CLI for Windows | Microsoft Docs](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli))
+- The `azure-cli-ml` extension is added or already installed.
+
+##### Get Service Principal Client ID
+
+1. Login to Azure with an account with "subscription Administrator" privileges`AZ Login`
+
+   ![image-20201224094106756](media/az_login.png)
+
+2. Create Service Principal `az ad sp create-for-rbac --sdk-auth --name <USERNAME>`
+
+   ![image-20201224094345813](media/image-20201224094345813.png)
+
+3. Take note of th the `"objectId"` in the `clientId`field. 
+
+
 
 ### Step 2: Automated ML Experiment
 
@@ -50,7 +77,7 @@ Deploying the Best Model will allow to interact with the HTTP API service and in
 
 
 
-Now that the *Best Model* is deployed, enable Application Insights and retrieve logs. Although this is configurable at deploy time with a check-box, it is useful to be able to run code that will enable it for you. In this step we demostrate how to enable *Application Insights* and how to retreive logs running [logs.py](logs.py) python script.
+Now that the *Best Model* is deployed, enable Application Insights and retrieve logs. Although this is configurable at deploy time with a check-box, it is useful to be able to run code that will enable it for you. In this step we demonstrate how to enable *Application Insights* and how to retrieve logs running [logs.py](logs.py) python script.
 
 ```python
 service = Webservice(name=name, workspace=ws)
@@ -121,7 +148,7 @@ Now Swagger can be used to explore and consume the swagger.json file from Azure 
 
 ### Step 6: Consume Model Endpoints
 
-Once the model is deployed,  The [endpoint.py](endpoint.py) script is used to demostrate an incteracion with the trained model. In the script the `scoring_uri` and the `key`must match the key for your service and the URI that was generated after deployment and that are visible in the "Details Tab"
+Once the model is deployed,  The [endpoint.py](endpoint.py) script is used to demonstrate an interaction with the trained model. In the script the `scoring_uri` and the `key`must match the key for your service and the URI that was generated after deployment and that are visible in the "Details Tab"
 
 ![image-20201216175000883](media/consume_endpoint.png)
 
