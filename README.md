@@ -7,16 +7,7 @@ In this project, we are using the Bank Marketing dataset to create a cloud-based
 
 ![img](media/step-diagram.png)
 
-**Main Steps**:
-
-1. Authentication (required to interact with Azure ML Workspace)
-2. Automated ML Experiment
-3. Deploy the best model
-4. Enable logging
-5. Swagger Documentation
-6. Consume model endpoints
-7. Create and publish a pipeline
-8. Documentation
+[TOC]
 
 ## Key Steps
 
@@ -53,31 +44,25 @@ Prerequisites:
 
 ### Step 2: Automated ML Experiment
 
-In this step, you we created an experiment using **Automated ML**, configured a compute cluster, and used that cluster to run the experiment.
+In this step we registered a dataset, configure a compute cluster and created an experiment using **Automated ML**
 
 <u>Bank Market Dataset Registered</u> 
 
 ![image-20201216162015134](media/registerd_dataset.png)
 
-After the experiment run completes, a summary of all the models and their metrics are shown, including explanations. The *Best Model* is shown in the *Details* tab.
+After the experiment run finished, a summary of all the models and their metrics are shown. The *Best Model* is shown in the *Details* tab. From here the "best model" can be easily selected and analyzed and deployed.
 
 ![image-20201216164732050](media/experiment_completed.png)
 
-The "best model" can be easily selected and analyzed and deployed.
-
-![image-20201216165148357](media/best_model.png)
-
 ### Step 3: Deploy the Best Model
 
-Deploying the Best Model will allow to interact with the HTTP API service and interact with the model by sending data over POST requests.
+Deploying the *best model* will allow to interact with the HTTP API service and interact with the model by sending data over POST requests. To deploy open the model and then click "*deploy*" link in the toolbar. 
 
 ![image-20201216165148357](media/best_model.png)
 
 ### Step 4: Enable Application Insights Logging
 
-
-
-Now that the *Best Model* is deployed, enable Application Insights and retrieve logs. Although this is configurable at deploy time with a check-box, it is useful to be able to run code that will enable it for you. In this step we demonstrate how to enable *Application Insights* and how to retrieve logs running [logs.py](logs.py) python script.
+Now that the *Best Model* is deployed, its possible to enable *Application Insights* and retrieve logs from the web service. Although this is configurable at deploy time with a check-box, it is useful to be able to run code that will enable/disable it. In this step we demonstrate how to enable *Application Insights* and how to retrieve logs running [logs.py](logs.py) python script.
 
 ```python
 service = Webservice(name=name, workspace=ws)
@@ -93,6 +78,10 @@ Logs are shown immediately and the detail panel shows "Application Insights Enab
 ![image-20201216172259901](media/log_py_output.png)
 
 ![image-20201216172353552](media/app_insight_enabled.png)
+
+Now we can get get the logs with `log.py` 
+
+![endpoint_log](media/endpoint_log.png)
 
 ### Step 5: Consume model endpoints
 
@@ -168,16 +157,35 @@ Experiment Run
 
 https://youtu.be/oxwCxRj6LRA
 
-## Standout Suggestions
-The performance of the classification model from AutoML are sub-optimal. 
+## Future improvements
 
-In the AutoML step, we set the featurization parameter is set to 'auto'.  Manual feature engineering may improve the model performance. 
+### Feature Engeneering
 
--  choose the encoder for the categorical variables,
-- how to deal with missing values
-- try to reduce dimension using PCA
+There are some numerical columns in the dataset with a elevated number o distinc values. The values shoud be grouped in bins and colums should be converted to categorical
 
-The dataset unbalanced. Only about 10% of the customer subscribed. Therefore this issue should be considered to fix for future experiments. 
+Less relevant features shoud be removed to simplify the model. PCA shoud be tested to try to reduce model dimension without perfomance loss
 
-- We may try to use different samplig tecnique 
-- A different metric can be used. 'AUC_weighted' is a common choice for unbalanced dataset.
+The most relevant feature for the prediction *duration*. This information is available when the last call to the prospect customer is concluded. A different model for early prediction,  shoud be developed.
+
+Feature engineering steps in AutoML can be configured passing a specifi *FeaturizationConfig*" in `featurization` parameter in *AutoML Config*.
+
+### Improve Auto ML Configuration
+
+The AutoML experiment has been performend under strict constrains due to lab timeout limit. Increse *experiment timeout* may allow AtuoML to find a better model.
+
+Enable *deep learning* in classification task to see if more advanced model can bring better performance.
+
+### Unbalanced Dataset
+
+The dataset unbalanced. Only about 10% of the customer subscribed. Therefore this issue should be considered to fix for future improvements.
+
+![image-20201128010145588](media/unbalanced_dataset_y.png)
+
+ AutoML is configured to use *AUC_weighted* as primary metric. This is a common "first choice" for unbalanced dataset. AutoML calculates many [different metrics for classification models]( https://docs.microsoft.com/en-us/azure/machine-learning/how-to-understand-automated-ml#classification-metrics). Other *weighted*  metrics such as *matthews_correlation* should be tested.  
+
+An other way to deal with unbalanced dataset is using resampling methods to balance the dataset. The following tecniques should be tested to try to improve model performance:
+
+- undersampling from the majority class in order to keep only a part of these points
+- oversampling (replicating some points) from the minority class in order to increase its cardinality
+- generating synthetic data consists from the minority class (using SMOTE method for example) to increase its cardinality
+
