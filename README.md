@@ -7,7 +7,24 @@ In this project, we are using the Bank Marketing dataset to create a cloud-based
 
 ![img](media/step-diagram.png)
 
-[TOC]
+## Table of Contents
+
+- [Key Steps](#key-steps)
+  * [Step 1: Authentication](#step-1--authentication)
+    + [How To Get Service Principal Client ID](#how-to-get-service-principal-client-id)
+      - [Get Service Principal Client ID](#get-service-principal-client-id)
+  * [Step 2: Automated ML Experiment](#step-2--automated-ml-experiment)
+  * [Step 3: Deploy the Best Model](#step-3--deploy-the-best-model)
+  * [Step 4: Enable Application Insights Logging](#step-4--enable-application-insights-logging)
+  * [Step 5: Consume model endpoints](#step-5--consume-model-endpoints)
+    + [Endpoint Exploration with Swagger](#endpoint-exploration-with-swagger)
+    + [Consume Model Endpoints from a client Application](#consume-model-endpoints-from-a-client-application)
+  * [Step 6: Create, Publish and Consume a Pipeline](#step-6--create--publish-and-consume-a-pipeline)
+- [Screen Recording](#screen-recording)
+- [Future improvements](#future-improvements)
+  * [Feature Engeneering](#feature-engeneering)
+  * [Improve Auto ML Configuration](#improve-auto-ml-configuration)
+  * [Unbalanced Dataset](#unbalanced-dataset)
 
 ## Key Steps
 
